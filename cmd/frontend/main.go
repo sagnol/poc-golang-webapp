@@ -16,7 +16,7 @@ func main() {
 	router := gin.New()
 	router.LoadHTMLGlob("templates/*")
 	router.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.html", gin.H{})
+		c.HTML(http.StatusOK, "index.html", gin.H{"Title": "index"})
 	})
 
 	srv := http.Server{
