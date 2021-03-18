@@ -14,8 +14,10 @@ import (
 
 func main() {
 	router := gin.New()
-	router.LoadHTMLGlob("templates/*")
-	router.Static("/dist/ui/components", "ui/components/dist")
+	router.LoadHTMLGlob("ui/dist/*.html")
+	router.Static("dist/ui/components", "ui/dist")
+	router.Static("ui/dist", "ui/dist")
+	router.Static("static/css", "ui/dist/static/css")
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", gin.H{"Title": "index"})
 	})
