@@ -5,6 +5,7 @@ const path = require('path');
 const webpack = require('webpack');
 const resolve = require('resolve');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const appDirectory = fs.realpathSync(process.cwd());
 const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
@@ -29,8 +30,8 @@ module.exports = {
     index: [resolveApp('./src/pages/index')]
   },
   output: {
-    filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    filename: '[name].[hash].bundle.js',
+    path: path.resolve(__dirname, '../dist')
   },
   resolve: {
     extensions: moduleFileExtensions.map(ext => `.${ext}`)
@@ -106,5 +107,9 @@ module.exports = {
       filename: 'static/css/[name].[contenthash:8].css',
       chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
     }),
+    new HtmlWebpackPlugin({
+      publicPath: "ui/dist",
+      template: resolveApp("../../templates/index.html")
+    })
   ]
 }
